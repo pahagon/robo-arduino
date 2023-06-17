@@ -1,7 +1,15 @@
 /* @autor: Eletrogate
    @licença: GNU GENERAL PUBLIC LICENSE Version 3 */
 
-#include "constantes.h" // inclui cabeçalho com as constantes
+const uint8_t in1 = 3;
+const uint8_t in2 = 5;
+const uint8_t in3 = 9;
+const uint8_t in4 = 10;
+const uint8_t pinIn = 4;
+const uint8_t pinOut = 2;
+const char caractereInicio = ':';
+const char caractereSepara = ' ';
+const char caractereFinal = '\n';
 
 bool dado_novo;                                       // declara as
 uint8_t v, a, r, vel_int, val_mA, val_mB, quadrante;  // variaveis que serao
@@ -31,7 +39,7 @@ void loop() {
   }
 
   if(Serial.available() && Serial.read() == caractereInicio) {  // se há dados e o primeiro é caractereInicio
-  dado_novo = true;                                   // armazena que há dado novo
+    dado_novo = true;                                 // armazena que há dado novo
     r = -1;                                           // prepara o indice de recebido
     while((c = Serial.read()) != caractereFinal)      // enquanto nao for o caractere finalizador
       if(caractereValido(c))                          // se for um caractere valido
