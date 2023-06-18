@@ -1,6 +1,7 @@
 profiles:
-  uno:
-    fqbn: arduino:avr:uno
+  esp:
+    fqbn: esp8266:esp8266:generic
     platforms:
-      - platform: arduino:avr (1.8.6)
+      - platform: esp8266:esp8266 (3.1.2)
+        platform_index_url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
 
