@@ -31,3 +31,7 @@ compile: ## Compiles source code using esp profile
 .PHONY: upload
 upload: ## Uploads source code using esp profile
 	arduino-cli upload -p $(PORT) --fqbn esp8266:esp8266:generic
+
+.PHONY: monitor
+monitor: ## Opens a communication port with a board
+	arduino-cli monitor -p $(PORT)
