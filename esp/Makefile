@@ -26,7 +26,7 @@ board-list: ## Lists all avalible boards.
 
 .PHONY: compile
 compile: ## Compiles source code using esp profile
-	arduino-cli compile --profile esp
+	arduino-cli compile --clean -v --profile esp
 
 .PHONY: upload
 upload: ## Uploads source code using esp profile

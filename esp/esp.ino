@@ -3,9 +3,12 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <ESPAsyncWebServer.h>
+#include <ESPAsyncWebSrv.h>
 #include <ESPAsyncTCP.h>
 #include <LittleFS.h>
+
+#define DEBUG
+#define DEBUG_LOOP
 
 #ifndef CONST_H
 #define CONST_H
@@ -30,7 +33,7 @@ const char paths[][13] = {"/ssid.txt" ,"/pass.txt" ,"/ip.txt" ,"/gateway.txt"};
 #ifndef PB_H
 #define PB_H
 
-#include <fs.h>
+#include <FS.h>
 
 String modelos(const String& var);
 
@@ -70,9 +73,6 @@ void constroiPag(AsyncWebServer &server, fs::FS &fs) {
 }
 
 #endif
-
-//#define DEBUG
-//#define DEBUG_LOOP
 
 bool evtConectado, srvRestart, apagarCredencial, deveIniciarAPSTA; //declara booleanos globais
 
@@ -339,6 +339,10 @@ void setup() {
 
 void loop() {
 
+  #ifdef DEBUG
+    imprimeTodosArquivos("initWifi");
+  #endif
+  
   static bool controleAutoRec = false; // declara variavel de controle local
   static unsigned tempoDecorrido = 0;  // declara variavel de tempo local
 
