@@ -27,3 +27,7 @@ compile: ## Compiles
 .PHONY: upload
 upload: ## Uploads
 	arduino-cli upload -p $(PORT) --profile uno
+
+.PHONY: monitor
+monitor: ## Opens a communication port with a board
+	arduino-cli monitor -p $(PORT)
