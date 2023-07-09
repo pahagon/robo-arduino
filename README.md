@@ -8,3 +8,6 @@ O hardware e todas as conexões seguem identicos aos da versão anterior.
 TODO
 [] Criar uma task no makefile do componente de ESP8266 para usar [esptool](://github.com/espressif/esptool) e copiar o arquivos via linha do commando e não usar a interface grafica e o plugin
 
+Links
+* [Arduino - Wrong Characters on Serial Monitor - How to Fix](https://www.youtube.com/watch?v=4Z8f5MyS_EY)
+
