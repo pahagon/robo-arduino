@@ -1,6 +1,8 @@
 /* @autor: Eletrogate
    @licença: GNU GENERAL PUBLIC LICENSE Version 3 */
 
+#define DEBUG
+
 const uint8_t in1 = 3;
 const uint8_t in2 = 5;
 const uint8_t in3 = 9;
@@ -20,12 +22,24 @@ bool caractereValido(char c)  {
   return ((c >= '0' && c <= '9') || c == ' ');  // verifica se o caractere recebido do ESP é um número ou um espaço
 }
 
+#ifdef DEBUG
+void builtInLedBlink() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
+}
+#endif
+
 void setup() {
   delay(500);                 // aguarda o sistema estabilizar
   Serial.begin(9600);         // inicia a serial
   pinMode(pinIn, INPUT);      // configura e inicia
   pinMode(pinOut, OUTPUT);    // as entradas
   digitalWrite(pinOut, LOW);  // e saídas
+  #ifdef DEBUG
+  pinMode(LED_BUILTIN, OUTPUT);
+  #endif
 }
 
 void loop() {
