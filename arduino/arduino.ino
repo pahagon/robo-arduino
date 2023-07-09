@@ -39,7 +39,6 @@ void loop() {
   }
 
   if(Serial.available() && Serial.read() == caractereInicio) {  // se há dados e o primeiro é caractereInicio
-    dado_novo = true;                                 // armazena que há dado novo
     r = -1;                                           // prepara o indice de recebido
     while((c = Serial.read()) != caractereFinal)      // enquanto nao for o caractere finalizador
       if(caractereValido(c))                          // se for um caractere valido
@@ -54,11 +53,9 @@ void loop() {
 
     angulo[r - v - 1 < 3 ?      // angulo recebeu até 3 caracteres?
             r - v : 3] = '\0';  // se sim, insere o caractere nulo na posição posterior à do ultimo copiado. se não, o insere na ultima posição de angulo
-  }
 
-  if(dado_novo) { // se recebeu um novo dado
-    vel_int = atoi(vel);  vel_int = map(vel_int, 0, 100, 0, 255); // transforma a velocidade em um inteiro e, então, o mapeia entre 0 e 255
-    ang_int = atoi(angulo);                                       // transforma o angulo em um inteiro
+    vel_int = atoi(vel); vel_int = map(vel_int, 0, 100, 0, 255); // transforma a velocidade em um inteiro e, então, o mapeia entre 0 e 255
+    ang_int = atoi(angulo);                                      // transforma o angulo em um inteiro
 
     if(ang_int < 90) quadrante = 1; else if(ang_int < 180) quadrante = 2; else if(ang_int < 270) quadrante = 3; else if(ang_int < 360) quadrante = 4; // determina em qual quadrante o joystick está
     
@@ -75,5 +72,5 @@ void loop() {
     else {                                              // senão
       analogWrite(in2, 0); analogWrite(in1, val_mA);    // aciona os motores
       analogWrite(in4, 0); analogWrite(in3, val_mB);  } // para trás
-  } dado_novo = false;                                  // indica que o dado já foi tratado
+  }
 }
