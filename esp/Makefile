@@ -26,11 +26,15 @@ board-list: ## Lists all avalible boards.
 
 .PHONY: compile
 compile: ## Compiles source code using esp profile
+	arduino-cli compile --profile esp
+
+.PHONY: compile-clean
+compile-clean: ## Compiles and cleans source code using esp profile
 	arduino-cli compile --clean -v --profile esp
 
 .PHONY: upload
 upload: ## Uploads source code using esp profile
-	arduino-cli upload -p $(PORT) --fqbn esp8266:esp8266:generic
+	arduino-cli upload -p $(PORT) --profile esp
 
 .PHONY: monitor
 monitor: ## Opens a communication port with a board
