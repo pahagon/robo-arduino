@@ -31,7 +31,32 @@ void builtInLedBlink() {
 }
 #endif
 
-void setup() {
+int forwards  = 1;
+int backwards = 0;
+int stop = 2;
+
+void move(int desired_direction) {
+  if (desired_direction == forwards) {
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+
+  } else if (desired_direction == backwards) {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+
+  } else {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+  }
+}
+
+void old_setup() {
   delay(500);                 // aguarda o sistema estabilizar
   Serial.begin(9600);         // inicia a serial
   pinMode(pinIn, INPUT);      // configura e inicia
@@ -42,7 +67,26 @@ void setup() {
   #endif
 }
 
+void setup() {
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+}
+
 void loop() {
+  move(forwards);
+  delay(15000);
+
+  move(stop);
+  delay(15000);
+
+  move(backwards);
+  delay(15000);
+}
+
+void old_loop() {
 
   if(!digitalRead(pinIn)) {           // se detectar nova conexão à página
     digitalWrite(pinOut, LOW);        // avisa que detectou
