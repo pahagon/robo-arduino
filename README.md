@@ -13,4 +13,5 @@ O hardware e todas as conexões seguem identicos aos da versão anterior.
 * [How to use the L298N Motor Driver with Arduino - Quick Tutorial](https://www.youtube.com/watch?v=E2sTbpFsvXI)
 * [ESP8266 NodeMCU: Create a Wi-Fi Manager (AsyncWebServer library)](https://randomnerdtutorials.com/esp8266-nodemcu-wi-fi-manager-asyncwebserver/)
 * [L298N H Bridge DC Motor Controller without any Microcontroller](https://www.youtube.com/watch?v=0FCA6n-8AXE)
+* [Domine os segredos para programar o ESP01, o mini Arduino com WiFi](https://www.youtube.com/watch?v=9dxEhlgkE3o)
 
