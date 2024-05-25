@@ -4,6 +4,23 @@ The project "Kit_Robo_Webserver" on GitHub is a repository for a robot controlle
 It integrates an HTML and JavaScript-based joystick for control and uses an ESP8266 microcontroller with the AsyncWebServer library for managing Wi-Fi connectivity. 
 The repository includes code and documentation for setting up the hardware and software components necessary for the robot's operation.
 
+To start developing the Kit_Robo_Webserver project, follow these steps:
+
+1. **Clone the Repository**: Clone the GitHub repository to your local machine.
+   ```bash
+   git clone https://github.com/pahagon/Kit_Robo_Webserver.git
+   ```
+
+2. **Set Up Hardware**: Assemble the robot hardware as per the instructions in the repository. This includes connecting the ESP8266 microcontroller.
+
+3. **Install Dependencies**: Install necessary libraries, such as AsyncWebServer, for the ESP8266.
+
+4. **Upload Code**: Use the Arduino IDE to upload the provided code to the ESP8266.
+
+5. **Configure Wi-Fi**: Set up your Wi-Fi credentials in the code to enable remote control.
+
+6. **Run the Web Server**: Access the web interface via the robot's IP address to control it.
+
 ## TODO
 [] Create makefile task in order to copy files to ESP8266 using [esptool](://github.com/espressif/esptool).
 
