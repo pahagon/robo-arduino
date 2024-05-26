@@ -12,3 +12,7 @@ install-arduino-cli: ## Installs arduino-cli
 .PHONY: install-esp-core
 install-esp-core: ## Install esp822 core
 	arduino-cli core install esp8266:esp8266
+
+.PHONY: install-fritzing
+install-fritzing: ## Install fritzing
+	sudo apt-get install fritzing
