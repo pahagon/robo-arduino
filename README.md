@@ -30,6 +30,7 @@ To start developing the Kit_Robo_Webserver project, follow these steps:
 * [ESP8266 NodeMCU: Create a Wi-Fi Manager (AsyncWebServer library)](https://randomnerdtutorials.com/esp8266-nodemcu-wi-fi-manager-asyncwebserver/)
 * [L298N H Bridge DC Motor Controller without any Microcontroller](https://www.youtube.com/watch?v=0FCA6n-8AXE)
 * [Domine os segredos para programar o ESP01, o mini Arduino com WiFi](https://www.youtube.com/watch?v=9dxEhlgkE3o)
+* [Dois segredos para dominar o ESP-01 WiFi. 😎 Fácil como o Arduino](https://www.youtube.com/watch?v=TgxrfagXROk)
 * [Joystick based on this project](https://www.instructables.com/Making-a-Joystick-With-HTML-pure-JavaScript/)
 * [Wifi Manager](https://randomnerdtutorials.com/esp8266-nodemcu-wi-fi-manager-asyncwebserver/)
 
