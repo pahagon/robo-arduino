@@ -31,3 +31,15 @@ upload: ## Uploads source code using esp profile
 .PHONY: monitor
 monitor: ## Opens a communication port with a board
 	arduino-cli monitor -p $(PORT) -c BaudRate=115200
+
+.PHONY: dev-web-server
+dev-web-server: ## Starts a development web server
+	cd web && python3 -m http.server
+
+.PHONY: install-websocket
+install-websocket: ## Installs websocket library
+	pip3 install websockets
+
+.PHONY: dev-websocket-server
+dev-websocket-server: ## Starts a development websocket server
+	python3 web/websocket-server.py

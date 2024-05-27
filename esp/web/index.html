@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robô Arthur e Thomas</title>
+  </head>
+  <body>
+    <h1>Robô Arthur e Thomas</h1>
+    <button id="forwards">Go forwards</button>
+    <button id="backwards">Go backwards</button>
+    <div id="response"></div>
+    <script>
+      const forwards = document.getElementById('forwards');
+      const backwards = document.getElementById('backwards');
+      const response = document.getElementById('response');
+
+      let ws;
+      let pingInterval;
+      const pingTimeout = 5000;  // 5 seconds for example
+
+      function connect() {
+          ws = new WebSocket(`ws://${window.location.hostname}`);
+          ws.onopen = () => {
+              console.log('Connected');
+              startHeartbeat();
+          };
+          ws.onmessage = (event) => {
+              if (event.data === "pong") {
+                  console.log("Received pong from server.");
+              } else {
+                  response.innerText = `Server says: ${event.data}`;
+              }
+          };
+          ws.onclose = () => {
+              console.log('Disconnected');
+              stopHeartbeat();
+              setTimeout(connect, 1000);  // Try to reconnect after 1 second
+          };
+      }
+
+      forwards.addEventListener('click', () => {
+          if (ws.readyState === WebSocket.OPEN) {
+              ws.send(1);
+          } else {
+              console.error("WebSocket connection is not open.");
+          }
+      });
+
+      backwards.addEventListener('click', () => {
+          if (ws.readyState === WebSocket.OPEN) {
+              ws.send(0);
+          } else {
+              console.error("WebSocket connection is not open.");
+          }
+      });
+
+      function startHeartbeat() {
+          pingInterval = setInterval(function() {
+              if (ws.readyState === WebSocket.OPEN) {
+                  ws.send('ping');
+              }
+          }, pingTimeout);
+      }
+
+      function stopHeartbeat() {
+          clearInterval(pingInterval);
+      }
+      
+      connect();
+    </script>
+  </body>
+</html>

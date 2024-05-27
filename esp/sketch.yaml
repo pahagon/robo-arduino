@@ -5,6 +5,5 @@ profiles:
       - platform: esp8266:esp8266 (3.1.2)
         platform_index_url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
     libraries:
-      - ESPAsyncTCP (1.2.4)
-      - ESPAsyncWebSrv (1.2.6)
+      - WebSockets (2.4.0)
 
