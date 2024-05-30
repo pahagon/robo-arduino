@@ -1,6 +1,0 @@
-profiles:
-  uno:
-    fqbn: arduino:avr:uno
-    platforms:
-      - platform: arduino:avr (1.8.6)
-
