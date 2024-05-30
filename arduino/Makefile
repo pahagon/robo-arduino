@@ -26,4 +26,4 @@ upload: ## Uploads
 
 .PHONY: monitor
 monitor: ## Opens a communication port with a board
-	arduino-cli monitor -p $(PORT)
+	arduino-cli monitor -p $(PORT) -c BaudRate=115200
