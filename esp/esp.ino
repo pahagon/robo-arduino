@@ -2,11 +2,11 @@
 #include <ESP8266WebServer.h>
 #include <WebSocketsServer.h>
 
+WebSocketsServer webSocket(8765);
 ESP8266WebServer server(80);
-WebSocketsServer webSocket = WebSocketsServer(8765);
 
 // HTML content to be served
-const char* htmlPage = R"=====(
+const char* indexHtmlPage = R"=====(
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,80 +83,59 @@ const char* htmlPage = R"=====(
 )=====";
 
 void handleRequest() {
-  server.send(200, "text/html", htmlPage);
+  server.send(200, "text/html", indexHtmlPage);
 }
 
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
-      Serial.printf("[%u] Disconnected!\n", num);
       break;
     case WStype_CONNECTED:
       {
         IPAddress ip = webSocket.remoteIP(num);
-        Serial.printf("[%u] Connection from %s\n", num, ip.toString().c_str());
         webSocket.sendTXT(num, "Hello from ESP8266");
       }
       break;
     case WStype_TEXT:
-      Serial.printf("[%u] Received text: %s\n", num, payload);
       if (strcmp((const char*)payload, "ping") == 0) {
         webSocket.sendTXT(num, "pong");
       } else {
+        Serial.println((const char*)payload);
         webSocket.sendTXT(num, payload);
       }
       break;
     case WStype_BIN:
-      Serial.printf("[%u] Received binary data\n", num);
       break;
   }
 }
 
-// Replace with your network credentials
-const char* ssid = "Ahagon-Vivo";
-const char* password = "0123456789Paulo";
+const char* ssid = "";
+const char* password = "";
+
+const IPAddress local_IP(192,168,15,14);
+const IPAddress gateway(192,168,15,1);
+const IPAddress subnet(255,255,255,0);
 
 void setup() {
   Serial.begin(115200);
   delay(10);
 
-  // Connect to Wi-Fi
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  
-  WiFi.begin(ssid, password);
+  if (WiFi.config(local_IP, gateway, subnet)) {
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+    }
   }
 
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-
-  // Start the server
   server.on("/", handleRequest);
   server.begin();
-  Serial.println("HTTP server started");
 
-  // Start the websocket
   webSocket.begin();
   webSocket.onEvent(webSocketEvent);
-  Serial.println("websocket server started");
 }
 
 void loop() {
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
-  } else {
-    Serial.println(":(");
-  }
-
   server.handleClient();
   webSocket.loop();
 }

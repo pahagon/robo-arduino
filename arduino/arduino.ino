@@ -1,3 +1,5 @@
+#include <SoftwareSerial.h>
+
 const uint8_t in1 = 3;
 const uint8_t in2 = 5;
 const uint8_t in3 = 9;
@@ -7,12 +9,7 @@ int forwards  = 1;
 int backwards = 0;
 int stop = 2;
 
-void builtInLedBlink() {
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
-}
+SoftwareSerial rxTx(0, 1); // RX, TX
 
 void move(int desired_direction) {
   if (desired_direction == forwards) {
@@ -36,17 +33,36 @@ void move(int desired_direction) {
 }
 
 void setup() {
+  Serial.begin(115200);
+  rxTx.begin(115200); // ESP8266 baud rate
+
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
 
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+
+  move(stop);
 }
 
 void loop() {
-  move(forwards);
-  delay(2500);
+  while (rxTx.available() <= 0) {
+    delay(500);
+    Serial.print(".");
+  }
 
-  move(backwards);
+  String received = rxTx.readString();
+  if(received.toInt() == forwards) {
+    move(forwards);
+  } else if (received.toInt() == backwards) {
+    move(backwards);
+  } else {
+    move(stop);
+  }
+
+  Serial.println("");
+  Serial.println("Received: " + received);
+
   delay(2500);
+  move(stop);
 }
