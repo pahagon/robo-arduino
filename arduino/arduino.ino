@@ -195,6 +195,21 @@ void parseDirection(String received, Direction* &direction) {
   #endif
 }
 
+void itShouldReset(int &cicles) {
+  cicles += 1;
+  if (cicles >= 50) {
+    asm volatile("  jmp 0");
+    delay(500);
+    cicles = 0;
+  } else {
+    #ifdef DEBUG
+    Serial.print("numOfCicles[");
+    Serial.print(cicles);
+    Serial.println("]");
+    #endif
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   rxTx.begin(115200); // ESP8266 baud rate
@@ -210,10 +225,13 @@ void setup() {
   stopEngine();
 }
 
+int numOfCicles = 0;
 void loop() {
   if (rxTx.available() <= 0) {
     return;
   }
+
+  itShouldReset(numOfCicles);
 
   String received = "";
   while (rxTx.available()) {
