@@ -153,8 +153,8 @@ void parseDirection(String received, Direction* &direction) {
   Serial.print("] ");
   #endif
 
-  int speed = first.toInt();
-  int angle = second.toInt();
+  int angle = first.toInt();
+  int speed = second.toInt();
 
   #ifdef DEBUG
   Serial.print("speed[");
@@ -263,4 +263,5 @@ void loop() {
     move(direction);
     free(direction);
   }
+  delete[] directions;
 }
