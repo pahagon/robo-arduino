@@ -125,9 +125,9 @@ String* parseDirections(String received, int &countDirectionsReceived) {
   String* directions = new String[countDirectionsReceived];
 
   #ifdef DEBUG
-  Serial.print("acc=(");
+  Serial.print(F("acc=("));
   Serial.print(acc);
-  Serial.println(")");
+  Serial.println(F(")"));
   #endif
 
   int beginIndex = 0;
@@ -146,22 +146,22 @@ void parseDirection(String received, Direction* &direction) {
   String second = received.substring(endIndex+1, received.length());
 
   #ifdef DEBUG
-  Serial.print("first[");
+  Serial.print(F("first["));
   Serial.print(first);
-  Serial.print("],second[");
+  Serial.print(F("],second["));
   Serial.print(second);
-  Serial.print("] ");
+  Serial.print(F("] "));
   #endif
 
   int angle = first.toInt();
   int speed = second.toInt();
 
   #ifdef DEBUG
-  Serial.print("speed[");
+  Serial.print(F("speed["));
   Serial.print(speed);
-  Serial.print("],angle[");
+  Serial.print(F("],angle["));
   Serial.print(angle);
-  Serial.print("] ");
+  Serial.print(F("] "));
   #endif
 
   speed = map(speed, 0, 100, 0, 255); // Map the value to the range 0-255
@@ -185,27 +185,27 @@ void parseDirection(String received, Direction* &direction) {
   }
 
   #ifdef DEBUG
-  Serial.print("directions[");
+  Serial.print(F("directions["));
   Serial.print(direction->quadrant);
-  Serial.print(",");
+  Serial.print(F(","));
   Serial.print(direction->speedEngineA);
-  Serial.print(",");
+  Serial.print(F(","));
   Serial.print(direction->speedEngineB);
-  Serial.println("]");
+  Serial.println(F("]"));
   #endif
 }
 
 void itShouldReset(int &cicles) {
   cicles += 1;
   if (cicles >= 50) {
-    asm volatile("  jmp 0");
+    asm volatile(" jmp 0");
     delay(500);
     cicles = 0;
   } else {
     #ifdef DEBUG
-    Serial.print("numOfCicles[");
+    Serial.print(F("numOfCicles["));
     Serial.print(cicles);
-    Serial.println("]");
+    Serial.println(F("]"));
     #endif
   }
 }
@@ -239,19 +239,11 @@ void loop() {
   }
   rxTx.flush();
 
-  //delay(1500);
-  //String received;
-  //received = "";
-  //received = "100";
-  //received = "1,1";
-  //received = "10,10";
-  //received = "10,011\t\t\n1,2 0,2&900,1 2";
-
   #ifdef DEBUG
-  Serial.print("r=(");
+  Serial.print(F("r=("));
   Serial.print(received);
-  Serial.print(")");
-  Serial.print(" ");
+  Serial.print(F(")"));
+  Serial.print(F(" "));
   #endif
 
   int numOfDirections = 0;
