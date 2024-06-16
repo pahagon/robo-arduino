@@ -9,6 +9,10 @@ help:
 install-arduino-cli: ## Installs arduino-cli
 	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/home/pahagon/bin sh
 
+.PHONY: install-arduino-linter
+install-arduino-linter: ## Installs arduino-linter
+	curl -fsSL https://raw.githubusercontent.com/arduino/arduino-lint/main/etc/install.sh | BINDIR=/home/pahagon/bin sh
+
 .PHONY: install-esp-core
 install-esp-core: ## Install esp822 core
 	arduino-cli core install esp8266:esp8266
