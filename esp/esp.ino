@@ -301,8 +301,8 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
   }
 }
 
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "SSID";
+const char* password = "PASSWD";
 
 const IPAddress local_IP(192,168,15,14);
 const IPAddress gateway(192,168,15,1);

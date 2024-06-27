@@ -17,8 +17,20 @@ board-list: ## Lists all avalible boards.
 	arduino-cli board list
 
 .PHONY: compile
-compile: ## Compiles source code using esp profile
+compile: replace-secrets revert-secrets ## Compiles source code using esp profile
 	arduino-cli compile --profile esp
+
+.PHONY: replace-secrets
+replace-secrets: ## Replaces secrets in the source code
+	@echo "Replacing secrets in the source code"
+	@sed -i 's/SSID/$(shell cat .passwd | head -n 1)/g' esp.ino
+	@sed -i 's/PASSWD/$(shell cat .passwd | tail -n 1)/g' esp.ino
+
+.PHONY: revert-secrets
+revert-secrets: ## Reverts secrets in the source code
+	@echo "Reverting secrets in the source code"
+	@sed -i 's/$(shell cat .passwd | head -n 1)/SSID/g' esp.ino
+	@sed -i 's/$(shell cat .passwd | tail -n 1)/PASSWD/g' esp.ino
 
 .PHONY: compile-clean
 compile-clean: ## Compiles and cleans source code using esp profile
