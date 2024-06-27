@@ -30,7 +30,7 @@ upload: ## Uploads source code using esp profile
 
 .PHONY: monitor
 monitor: ## Opens a communication port with a board
-	arduino-cli monitor -p $(PORT) -c BaudRate=115200
+	arduino-cli monitor -p $(PORT) -c BaudRate=115200 --profile esp
 
 .PHONY: dev-web-server
 dev-web-server: ## Starts a development web server
