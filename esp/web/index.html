@@ -166,6 +166,7 @@
 
               if (ws.readyState === WebSocket.OPEN) {
                   ws.send(`${angulo_graus},${velocidade}`);
+                  console.log(`${angulo_graus},${velocidade}`);
               } else {
                   console.error("WebSocket connection is not open.");
               }

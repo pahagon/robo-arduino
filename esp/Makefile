@@ -17,11 +17,11 @@ board-list: ## Lists all avalible boards.
 	arduino-cli board list
 
 .PHONY: compile
-compile: replace-secrets ## Compiles source code using esp profile
+compile: replace-secrets replace-index-html ## Compiles source code using esp profile
 	arduino-cli compile --profile esp
 
-.PHONY: compile-then-revert-secrets
-compile-then-revert-secrets: compile revert-secrets ## Compiles source code using esp profile and replaces secrets
+.PHONY: compile-and-revert-replaces
+compile-and-revert-replaces: compile revert-index-html revert-secrets ## Compiles source code using esp profile
 	@echo "Done!"
 
 .PHONY: replace-secrets
@@ -35,6 +35,22 @@ revert-secrets: ## Reverts secrets in the source code
 	@echo "Reverting secrets in the source code"
 	@sed -i 's/$(shell cat .passwd | head -n 1)/SSID/g' esp.ino
 	@sed -i 's/$(shell cat .passwd | tail -n 1)/PASSWD/g' esp.ino
+
+.PHONY: replace-index-html
+replace-index-html: ## Adds index.html content in the source code
+	@cp esp.ino esp.ino.bak
+	@sed -i '/INDEXHTML/ {
+		r ./web/index.html
+		d
+	}' esp.ino
+
+.PHONY: revert-index-html
+revert-index-html: ## Removes index.html content in the source code
+	if [ -f esp.ino.bak ]; then
+		@mv esp.ino.bak esp.ino
+	fi
+
+all: compile-and-revert-replaces
 
 .PHONY: compile-clean
 compile-clean: ## Compiles and cleans source code using esp profile
